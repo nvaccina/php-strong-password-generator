@@ -5,11 +5,29 @@
 $error_msg = '';
 
 if(isset($_GET['inputNumberCaracter']) && !empty($_GET['inputNumberCaracter']) && ($_GET['inputNumberCaracter'] >= 5) && ($_GET['inputNumberCaracter'] <= 20) && is_numeric($_GET['inputNumberCaracter'])){
-  var_dump("Numero accettato");
+  //var_dump("Numero accettato");
 }else{
-  var_dump("Numero non accettato");
+  //var_dump("Numero non accettato");
   $error_msg = "Inserire un numero valido compreso tra 5 e 20!";
 }
+
+$maxLengthPassword = $_GET['inputNumberCaracter'];
+
+function generatePassword($maxLengthPassword){
+  $caratteri = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!?~@#-_+<>[]{}';
+  $passwordArray = [];
+  $password='';
+  for ($i=0; $i < $maxLengthPassword - 1; $i++) { 
+    $carattereEstratto = rand(0,strlen($caratteri) - 1);
+    $passwordArray[] = $caratteri[$carattereEstratto];
+    //var_dump($passwordArray);
+    //var_dump($caratteri[$carattereEstratto]);
+  };
+  $password = implode($passwordArray);
+  //var_dump($password);
+  return $password;
+};
+
 
 ?>
 
@@ -39,6 +57,10 @@ if(isset($_GET['inputNumberCaracter']) && !empty($_GET['inputNumberCaracter']) &
       </form>
 
       <p class="text-danger" > <?php echo $error_msg ?> </p>
+
+
+      <p>La password generata è => <strong> <?php echo generatePassword($maxLengthPassword) ?> </strong></p>
+
 
     </div>
 
