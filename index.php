@@ -1,9 +1,17 @@
 <?php
 
 
+//controllo numero inserito nel form
+$error_msg = '';
+
+if(isset($_GET['inputNumberCaracter']) && !empty($_GET['inputNumberCaracter']) && ($_GET['inputNumberCaracter'] >= 5) && ($_GET['inputNumberCaracter'] <= 20) && is_numeric($_GET['inputNumberCaracter'])){
+  var_dump("Numero accettato");
+}else{
+  var_dump("Numero non accettato");
+  $error_msg = "Inserire un numero valido compreso tra 5 e 20!";
+}
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,10 +33,12 @@
       <form action="index.php" method="GET" class="d-flex align-items-center">
 
         <label for="inputCaracter" class="form-label">Create Password</label>
-        <input type="text" id="inputCaracter" name="inputCaracter" class="form-control" placeholder="Scrivi di quanti caratteri vuoi la password">
+        <input type="text" id="inputCaracter" name="inputNumberCaracter" class="form-control" placeholder="Scrivi di quanti caratteri vuoi la password">
 
         <button class="btn btn-success ms-3">Create</button>
       </form>
+
+      <p class="text-danger" > <?php echo $error_msg ?> </p>
 
     </div>
 
