@@ -1,32 +1,27 @@
 <?php
 
+require_once __DIR__ . '/partials/functions.php';
 
 //controllo numero inserito nel form
 $error_msg = '';
+//$_GET['inputNumberCaracter'] = '';
+$maxLengthPassword = null;
 
-if(isset($_GET['inputNumberCaracter']) && !empty($_GET['inputNumberCaracter']) && ($_GET['inputNumberCaracter'] >= 5) && ($_GET['inputNumberCaracter'] <= 20) && is_numeric($_GET['inputNumberCaracter'])){
-  //var_dump("Numero accettato");
-}else{
-  //var_dump("Numero non accettato");
-  $error_msg = "Inserire un numero valido compreso tra 5 e 20!";
+if(isset($_GET['inputNumberCaracter'])){
+
+  if(checkNumber($_GET['inputNumberCaracter'])){
+
+    //Funzione per generare password random
+    $maxLengthPassword = $_GET['inputNumberCaracter'];
+
+    generatePassword($maxLengthPassword);
+
+  }else{
+    //var_dump("Numero non accettato");
+    $error_msg = "Inserire un numero valido compreso tra 5 e 20!";
+  }
 }
 
-$maxLengthPassword = $_GET['inputNumberCaracter'];
-
-function generatePassword($maxLengthPassword){
-  $caratteri = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!?~@#-_+<>[]{}';
-  $passwordArray = [];
-  $password='';
-  for ($i=0; $i < $maxLengthPassword - 1; $i++) { 
-    $carattereEstratto = rand(0,strlen($caratteri) - 1);
-    $passwordArray[] = $caratteri[$carattereEstratto];
-    //var_dump($passwordArray);
-    //var_dump($caratteri[$carattereEstratto]);
-  };
-  $password = implode($passwordArray);
-  //var_dump($password);
-  return $password;
-};
 
 
 ?>
